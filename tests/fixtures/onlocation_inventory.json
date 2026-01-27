@@ -1,0 +1,14 @@
+{
+  "packages": [
+    {
+      "name": "Premium Lower Level",
+      "section": "110",
+      "price": 12500.0
+    },
+    {
+      "name": "Upper Level Experience",
+      "section": "301",
+      "price": 7500.0
+    }
+  ]
+}

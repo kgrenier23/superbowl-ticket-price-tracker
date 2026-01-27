@@ -1,0 +1,16 @@
+{
+  "listings": [
+    {
+      "section": "142",
+      "row": "18",
+      "quantity": 2,
+      "price": 7900.0
+    },
+    {
+      "section": "225",
+      "row": "5",
+      "quantity": 3,
+      "price": 4100.0
+    }
+  ]
+}
