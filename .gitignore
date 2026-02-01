@@ -5,6 +5,7 @@ data/*.db
 out/
 logs/
 .venv/
+venv/
 *.egg-info/
 dist/
 debug/
