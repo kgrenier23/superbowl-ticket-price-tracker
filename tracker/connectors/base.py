@@ -11,6 +11,7 @@ import random
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from tracker.models import Listing
 
@@ -18,6 +19,24 @@ logger = logging.getLogger(__name__)
 
 _DEBUG_CAPTURE = os.environ.get("DEBUG_CAPTURE", "").strip() in ("1", "true", "yes")
 _DEBUG_DIR = Path(os.environ.get("DEBUG_DIR", "./debug"))
+
+
+def get_playwright_proxy() -> dict | None:
+    """Get proxy configuration for Playwright from environment variables."""
+    proxy_url = os.environ.get("HTTPS_PROXY") or os.environ.get("HTTP_PROXY")
+    if not proxy_url:
+        return None
+
+    try:
+        parsed = urlparse(proxy_url)
+        proxy_config = {"server": f"{parsed.scheme}://{parsed.hostname}:{parsed.port}"}
+        if parsed.username:
+            proxy_config["username"] = parsed.username
+        if parsed.password:
+            proxy_config["password"] = parsed.password
+        return proxy_config
+    except Exception:
+        return None
 
 
 class BaseConnector(abc.ABC):

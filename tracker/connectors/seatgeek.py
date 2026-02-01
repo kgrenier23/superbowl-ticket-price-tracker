@@ -12,7 +12,7 @@ from tracker.config import settings
 from tracker.models import Listing
 from tracker.normalize import enrich_section
 
-from .base import BaseConnector
+from .base import BaseConnector, get_playwright_proxy
 
 
 class SeatGeekConnector(BaseConnector):
@@ -155,7 +155,8 @@ class SeatGeekConnector(BaseConnector):
         listings: list[Listing] = []
 
         async with async_playwright() as pw:
-            browser = await pw.chromium.launch(headless=True)
+            proxy = get_playwright_proxy()
+            browser = await pw.chromium.launch(headless=True, proxy=proxy)
             ctx = await browser.new_context(user_agent=self.USER_AGENT)
             page = await ctx.new_page()
 
